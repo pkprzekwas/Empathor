@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import MovieListRow from './MovieListRow';
 
-const MovieList = ({movies, deleteMovie}) => {
+const MovieList = ({movies}) => {
   return (
     <table className="table">
       <thead>

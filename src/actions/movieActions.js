@@ -1,6 +1,5 @@
 import * as types from './actionTypes';
-import movieApi from '../api/mockMovieApi';
-
+import MovieApi from '../api/mockMovieApi';
 
 export function loadMoviesSuccess(movies) {
   return { type: types.LOAD_MOVIES_SUCCESS, movies };
@@ -8,7 +7,7 @@ export function loadMoviesSuccess(movies) {
 
 export function loadMovies() {
   return function (dispatch) {
-    return movieApi.getAllMovies().then(movies => {
+    return MovieApi.getAllMovies().then(movies => {
       dispatch(loadMoviesSuccess(movies));
     }).catch(error => {
       throw(error);
