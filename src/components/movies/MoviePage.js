@@ -3,10 +3,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as movieActions from '../../actions/movieActions';
 import MovieList from './MovieList';
+import {browserHistory} from "react-router";
 
 class MoviesPage extends React.Component {
   constructor(props, context) {
     super(props, context);
+
+    this.redirectToAddMoviePage = this.redirectToAddMoviePage.bind(this);
+  }
+
+  redirectToAddMoviePage() {
+    browserHistory.push('/movie');
   }
 
   render() {
@@ -15,6 +22,11 @@ class MoviesPage extends React.Component {
     return (
       <div>
         <h1>Filmy</h1>
+        <input
+          type="submit"
+          value="Add movie"
+          className="btn btn-primary"
+          onClick={this.redirectToAddMoviePage} />
         <MovieList movies={movies}/>
       </div>
     );

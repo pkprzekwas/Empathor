@@ -8,7 +8,7 @@ const movies = [
     id: "react-flux-building-applications",
     title: "Building Applications in React and Flux",
     watchHref: "http://www.pluralsight.com/courses/react-flux-building-applications",
-    authorId: "caseyneistet",
+    authorId: "caseyneistat",
     length: "5:08",
     category: "JavaScript"
   },
