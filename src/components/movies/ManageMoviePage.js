@@ -3,14 +3,15 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as movieActions from '../../actions/movieActions';
 import MovieForm from "./MovieForm";
+import toastr from 'toastr';
 
-
-class ManageMoviePage extends React.Component {
+export class ManageMoviePage extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       movie: Object.assign({}, props.movie),
-      errors: {}
+      errors: {},
+      saving: false
     };
 
     this.updateMovieState = this.updateMovieState.bind(this);
@@ -30,21 +31,50 @@ class ManageMoviePage extends React.Component {
     return this.setState({movie: movie});
   }
 
+  movieFormIsValid() {
+    let formIsValid = true;
+    let errors = {};
+
+    if (this.state.movie.title.length < 5) {
+      errors.title = 'Title should have at least 5 characters.';
+      formIsValid = false;
+    }
+
+    this.setState({errors: errors});
+    return formIsValid;
+  }
+
   saveMovie(event) {
     event.preventDefault();
-    this.props.actions.saveMovie(this.state.movie);
+
+    if (!this.movieFormIsValid()){
+      return;
+    }
+
+    this.setState({saving: true});
+    this.props.actions.saveMovie(this.state.movie)
+      .then(() => this.redirect())
+      .catch(error => {
+        toastr.error(error);
+        this.setState({saving: false});
+      });
+  }
+
+  redirect() {
+    this.setState({saving: false});
+    toastr.success('Movie saved');
     this.context.router.push('/movies');
   }
 
   render() {
     return (
       <div>
-      <h1>Edytuj</h1>
       <MovieForm
         movie={this.state.movie}
         onChange={this.updateMovieState}
         onSave={this.saveMovie}
         allAuthors={this.props.authors}
+        saving={this.state.saving}
         errors={this.state.errors} />
       </div>
     );

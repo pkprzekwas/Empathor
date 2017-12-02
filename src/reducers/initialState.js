@@ -1,4 +1,5 @@
 export default {
   movies: [],
-  authors: []
+  authors: [],
+  ajaxCallsInProgress: 0
 };

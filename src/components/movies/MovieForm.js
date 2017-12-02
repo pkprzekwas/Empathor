@@ -2,12 +2,13 @@ import React, {PropTypes} from 'react';
 import TextInput from "../common/TextInput";
 import SelectInput from "../common/SelectInput";
 
-const MovieForm = ({movie, allAuthors, onSave, onChange, loading, errors}) => {
+const MovieForm = ({movie, allAuthors, onSave, onChange, saving, errors}) => {
   return (
     <form>
+      <h1>Manage Movie</h1>
       <TextInput
         name="title"
-        label="Tytuł"
+        label="Title"
         onChange={onChange}
         value={movie.title}
         error={errors.title} />
@@ -16,29 +17,29 @@ const MovieForm = ({movie, allAuthors, onSave, onChange, loading, errors}) => {
         name="authorId"
         label="Autor"
         value={movie.authorId}
-        defaultOption="Wybierz autora"
+        defaultOption="Choose author"
         options={allAuthors}
         onChange={onChange}
         error={errors.authorId} />
 
       <TextInput
         name="category"
-        label="Kategoria"
+        label="Category"
         onChange={onChange}
         value={movie.category}
         error={errors.category} />
 
       <TextInput
         name="length"
-        label="Czas trwania"
+        label="Length"
         onChange={onChange}
         value={movie.length}
         error={errors.length}/>
 
       <input
         type="submit"
-        disabled={loading}
-        value={loading ? 'Zapisuje...' :  'Zapisano'}
+        disabled={saving}
+        value={saving ? 'Saving...' :  'Save'}
         className="btn btn-primary"
         onClick={onSave} />
     </form>
@@ -50,7 +51,7 @@ MovieForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   allAuthors: PropTypes.array,
-  loading: PropTypes.bool,
+  saving: PropTypes.bool,
   errors: PropTypes.object
 };
 

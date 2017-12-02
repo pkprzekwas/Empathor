@@ -11,6 +11,7 @@ export default (
     <IndexRoute component={HomePage} />
     <Route path="movies" component={MoviePage} />
     <Route path="movie/:id" component={ManageMoviePage} />
+    <Route path="movie" component={ManageMoviePage} />
     <Route path="about" component={AboutPage} />
   </Route>
 );
